@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Demo - ShowHidePass</title>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+	</head>
+	<body>
+	
+		<form action="">
+				<label>Password (default)</label>
+				<input id="pass1" type="password" /><br />
+				<label>Password (another text)</label>
+				<input id="pass2" type="password" /><br />
+				<label>Password (reverse functional)</label>
+				<input id="pass3" type="password" /><br />
+		</form>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script type="text/javascript">
+		// <![CDATA[
+		(function($){
+				 $.fn.extend({
+					ShowHidePass: function(selector,text='Show',reverse=false) {	
+					if (reverse) {
+					$(selector).get(0).type='text';
+					var start_type='text';
+					var end_type='password';
+					} else {
+					var start_type='password';
+					var end_type='text';
+					}
+					$(selector).after(" <label><input type=\"checkbox\" onchange=\"if ($('"+selector+"').get(0).type=='"+start_type+"') $('"+selector+"').get(0).type='"+end_type+"';else $('"+selector+"').get(0).type='"+start_type+"';\" />"+text+"</label>");
+					}
+				});
+			})(jQuery);
+			
+			$(document).ready(function(){
+			//default functional, add checkbox and label "Show" 
+			$().ShowHidePass('#pass1');
+			//another text, write "Show characters" instead "Show"
+			$().ShowHidePass('#pass2','Show characters');
+			//reverse functional 
+			$().ShowHidePass('#pass3','Hide characters',true);	
+			});	
+			// ]]>
+		</script>
+		
+	</body>
+</html>
